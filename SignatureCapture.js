@@ -11,6 +11,7 @@ class SignatureCapture extends Component {
   constructor() {
     super();
     this.onChange = this.onChange.bind(this);
+    this.subscriptions = [];
   }
 
   onChange(event) {
@@ -36,25 +37,25 @@ class SignatureCapture extends Component {
 
   componentDidMount() {
     if (this.props.onSaveEvent) {
-      this.subscription = DeviceEventEmitter.addListener(
+      let sub = DeviceEventEmitter.addListener(
         'onSaveEvent',
         this.props.onSaveEvent
       );
+      this.subscriptions.push(sub);
     }
 
     if (this.props.onDragEvent) {
-      this.subscription = DeviceEventEmitter.addListener(
+      let sub = DeviceEventEmitter.addListener(
         'onDragEvent',
         this.props.onDragEvent
       );
+      this.subscriptions.push(sub);
     }
   }
-
+  
   componentWillUnmount() {
-    if (this.subscription) {
-      this.subscription.remove();
-      this.subscription = null;
-    }
+      this.subscriptions.forEach(sub => sub.remove());
+      this.subscriptions = [];
   }
 
   render() {
