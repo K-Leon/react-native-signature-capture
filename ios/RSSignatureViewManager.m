@@ -45,8 +45,7 @@ RCT_EXPORT_METHOD(resetImage:(nonnull NSNumber *)reactTag) {
 	[self.bridge.eventDispatcher
 	 sendDeviceEventWithName:@"onSaveEvent"
 	 body:@{
-					@"pathName": aTempPath,
-					@"encoded": aEncoded
+					@"pathName": aTempPath
 					}];
 }
 
