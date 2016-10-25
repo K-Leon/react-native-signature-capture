@@ -143,11 +143,11 @@ public class RSSignatureCaptureMainView extends LinearLayout implements OnClickL
   }
 
   private File createNewFile() {
-    Format formatter = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+    Format formatter = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss.SSS");
     String s = formatter.format(new Date());
     String filename = "image-" + s + ".png";
-    File path;
-    path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+    String dir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/.shipmetrics/";
+    File path = new File(dir);
     File f = new File(path, filename);
     try {
       path.mkdirs();
@@ -168,13 +168,10 @@ public class RSSignatureCaptureMainView extends LinearLayout implements OnClickL
       OutputStream fout;
       try {
 
-        if (saveFileInExtStorage) {
-          fout = new FileOutputStream(outputFile);
-          this.signatureView.getSignature().compress(Bitmap.CompressFormat.PNG, 90, fout);
-          fout.flush();
-          fout.close();
-        }
-
+        fout = new FileOutputStream(outputFile);
+        this.signatureView.getSignature().compress(Bitmap.CompressFormat.PNG, 90, fout);
+        fout.flush();
+        fout.close();
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         Bitmap resizedBitmap = getResizedBitmap(this.signatureView.getSignature());
