@@ -83,6 +83,7 @@ public class RSSignatureCaptureView extends View {
    * @return
    */
   public Bitmap getSignature() {
+    this.setBackgroundColor(Color.WHITE);
 
     Bitmap signatureBitmap = null;
 
