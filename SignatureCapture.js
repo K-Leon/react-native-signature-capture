@@ -1,7 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactNative, {
   requireNativeComponent,
   View,
+  ViewPropTypes,
   UIManager,
   DeviceEventEmitter
 } from 'react-native';
@@ -52,7 +54,7 @@ class SignatureCapture extends Component {
       this.subscriptions.push(sub);
     }
   }
-  
+
   componentWillUnmount() {
       this.subscriptions.forEach(sub => sub.remove());
       this.subscriptions = [];
@@ -83,7 +85,7 @@ class SignatureCapture extends Component {
 
 
 SignatureCapture.propTypes = {
-  ...View.propTypes,
+  ...ViewPropTypes,
   rotateClockwise: PropTypes.bool,
   square: PropTypes.bool,
   saveImageFileInExtStorage: PropTypes.bool,
